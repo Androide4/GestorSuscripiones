@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Suscripciones{% endblock %}
+{% block content %}
+<div class="header">
+    <h2>Subscription Tracker</h2>
+    <p>Manage your subscriptions and never miss a payment.</p>
+    <a href="{% url 'suscripciones:create' %}" class="btn-add">+ Add Subscription</a>
+</div>
+<div>
+    <div class="stats-box">
+        <p>Monthly Spend</p>
+        <h3>${{ monthly_spend }}</h3>
+    </div>
+    <div class="stats-box">
+        <p>Yearly Spend</p>
+        <h3>${{ yearly_spend }}</h3>
+    </div>
+    <div class="stats-box">
+        <p>Active Subscriptions</p>
+        <h3>{{ active_subs }}</h3>
+    </div>
+</div>
+<h3>Your Subscriptions</h3>
+<p>Managing {{ suscripciones.count }} subscriptions</p>
+{% for sub in suscripciones %}
+<div class="sub-list">
+    <strong>{{ sub.proveedor.nombre }}</strong> - 
+    {% if sub.plan %}
+        {{ sub.plan.nombre }}
+    {% else %}
+        Custom
+    {% endif %}<br>
+    {{ sub.descripcion|default:"Sin descripción" }}<br>
+    Precio: 
+    {% if sub.plan %}
+        {{ sub.plan.precio }} {{ sub.plan.moneda.simbolo }}
+    {% else %}
+        N/A
+    {% endif %} per month<br>
+    Vence: {{ sub.fecha_fin }} ({{ sub.fecha_fin|timeuntil }} days)<br>
+    <a href="{% url 'suscripciones:update' sub.pk %}">Editar</a>
+</div>
+{% empty %}
+<p>No subscriptions yet.</p>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Editar {{ object.proveedor.nombre }}{% endblock %}
+{% block content %}
+<h2>Edit Subscription: {{ object.proveedor.nombre }}</h2>
+<p>Detalles: {{ object.descripcion }}</p>
+<p>Estado: {{ object.get_estado_display }}</p>
+<p>Inicio: {{ object.fecha_inicio }} | Fin: {{ object.fecha_fin }}</p>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+</form>
+{% endblock %}
