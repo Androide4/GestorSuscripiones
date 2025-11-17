@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'suscripciones.apps.SuscripcionesConfig', #inlcuir la app de suscripciones
+    'calificaciones.apps.CalificacionesConfig'
 ]
 
 MIDDLEWARE = [

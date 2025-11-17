@@ -1,0 +1,18 @@
+<!-- templates/calificaciones/calificacion_list.html -->
+{% extends 'base.html' %}
+{% block title %}Calificaciones{% endblock %}
+{% block content %}
+<h2>Calificaciones para {{ suscripcion }}</h2>
+<p>Promedio: {{ promedio_puntuacion }}</p>
+<a href="{% url 'calificaciones:create' suscripcion_pk=suscripcion.pk %}">+ Añadir Calificación</a>
+{% for cal in calificaciones %}
+<div class="sub-list">
+    Puntuación: {{ cal.puntuacion }}<br>
+    Comentario: {{ cal.comentario|default:"Sin comentario" }}<br>
+    <a href="{% url 'calificaciones:update' cal.pk %}">Editar</a>
+    <a href="{% url 'calificaciones:delete' cal.pk %}">Eliminar</a>
+</div>
+{% empty %}
+<p>No hay calificaciones.</p>
+{% endfor %}
+{% endblock %}

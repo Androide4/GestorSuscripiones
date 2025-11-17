@@ -2,9 +2,10 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.db.models import Sum
-from django.utils import timezone
 from .models import Suscripcion, Proveedor, Moneda, Plan, MetodoPago, Comentario
 from .forms import SuscripcionForm, ProveedorForm, MonedaForm, PlanForm, MetodoPagoForm, ComentarioForm
+from calificaciones.models import Calificacion
+from django.db import models
 
 # Suscripciones
 class SuscripcionListView(ListView):
@@ -20,11 +21,16 @@ class SuscripcionListView(ListView):
         active_subs = Suscripcion.objects.filter(estado='activa').count()
         monthly_spend = Suscripcion.objects.filter(estado='activa').aggregate(total=Sum('plan__precio'))['total'] or 0
         yearly_spend = monthly_spend * 12
-        upcoming = Suscripcion.objects.filter(estado='activa', fecha_fin__gt=timezone.now()).count()
+        upcoming = Suscripcion.objects.filter(estado='activa').count()
         context['monthly_spend'] = monthly_spend
         context['yearly_spend'] = yearly_spend
         context['active_subs'] = active_subs
         context['upcoming'] = upcoming
+
+        for sub in context['suscripciones']:
+            avg = Calificacion.objects.filter(suscripcion=sub).aggregate(models.Avg('puntuacion'))['puntuacion__avg'] or "N/A"
+            sub.avg_puntuacion = avg
+
         return context
 
 class SuscripcionCreateView(CreateView):

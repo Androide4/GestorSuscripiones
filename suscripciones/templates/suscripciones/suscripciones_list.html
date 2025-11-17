@@ -40,6 +40,9 @@
         N/A
     {% endif %} per month<br>
     Vence: {{ sub.fecha_fin }} ({{ sub.fecha_fin|timeuntil }} days)<br>
+    <p>Calificación: {{ sub.avg_puntuacion }}</p>  # Añadido al lado izquierdo
+    <a href="{% url 'calificaciones:create' suscripcion_pk=sub.pk %}">Calificar</a>
+    <a href="{% url 'calificaciones:list' suscripcion_pk=sub.pk %}">Ver Calificaciones</a>
     <a href="{% url 'suscripciones:update' sub.pk %}" class="btn-edit">Editar</a>
     <a href="{% url 'suscripciones:delete' sub.pk %}" class="btn-delete">Eliminar</a>
 </div>
