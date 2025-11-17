@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-{% block title %}Nueva Suscripción{% endblock %}
+{% block title %}Nuevo Metodo de Pago{% endblock %}
 {% block content %}
-<h2>Añadir Nueva Suscripción</h2>
+<h2>Añadir Nuevo Metodo de Pago</h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}

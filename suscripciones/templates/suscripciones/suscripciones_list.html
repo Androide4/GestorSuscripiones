@@ -1,29 +1,31 @@
 {% extends 'base.html' %}
 {% block title %}Suscripciones{% endblock %}
 {% block content %}
-<div class="header">
-    <h2>Subscription Tracker</h2>
-    <p>Manage your subscriptions and never miss a payment.</p>
-    <a href="{% url 'suscripciones:create' %}" class="btn-add">+ Add Subscription</a>
+<div style="text-align: right; margin: 10px 0;">
+    <a href="{% url 'suscripciones:create' %}" class="btn-add">+ Añadir Suscripción</a>
 </div>
 <div>
     <div class="stats-box">
-        <p>Monthly Spend</p>
+        <p>Gasto Mensual</p>
         <h3>${{ monthly_spend }}</h3>
     </div>
     <div class="stats-box">
-        <p>Yearly Spend</p>
+        <p>Gasto Anual</p>
         <h3>${{ yearly_spend }}</h3>
     </div>
     <div class="stats-box">
-        <p>Active Subscriptions</p>
+        <p>Suscripciones Activas</p>
         <h3>{{ active_subs }}</h3>
     </div>
+    <div class="stats-box">
+        <p>Pagos Próximos</p>
+        <h3>{{ upcoming }}</h3>
+    </div>
 </div>
-<h3>Your Subscriptions</h3>
-<p>Managing {{ suscripciones.count }} subscriptions</p>
+<h3>Tus Suscripciones</h3>
+<p>Administrando {{ suscripciones.count }} suscripciones</p>
 {% for sub in suscripciones %}
-<div class="sub-list">
+<div class="sub-list card">
     <strong>{{ sub.proveedor.nombre }}</strong> - 
     {% if sub.plan %}
         {{ sub.plan.nombre }}
@@ -38,7 +40,8 @@
         N/A
     {% endif %} per month<br>
     Vence: {{ sub.fecha_fin }} ({{ sub.fecha_fin|timeuntil }} days)<br>
-    <a href="{% url 'suscripciones:update' sub.pk %}">Editar</a>
+    <a href="{% url 'suscripciones:update' sub.pk %}" class="btn-edit">Editar</a>
+    <a href="{% url 'suscripciones:delete' sub.pk %}" class="btn-delete">Eliminar</a>
 </div>
 {% empty %}
 <p>No subscriptions yet.</p>

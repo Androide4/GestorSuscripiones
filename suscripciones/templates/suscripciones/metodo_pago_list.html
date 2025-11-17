@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Metodos de Pago{% endblock %}
+{% block content %}
+<h2>Metodos de Pago</h2>
+<div style="text-align: right; margin: 10px 0;">
+    <a href="{% url 'suscripciones:metodo_pago_create' %}" class="btn-add">+ Añadir Proveedor</a>
+</div>
+<table>
+    <tr>
+        <th>Tipo  </th>
+        <th>Últimos 4 Dígitos </th>
+        <th>Marca</th>
+        <th>Predeterminado</th>
+        <th>Acciones</th>
+    </tr>
+    {% for obj in metodos_pago %}
+    <tr>
+        <td>{{ obj.tipo }}</td>
+        <td>{{ obj.ultimos4 }}</td>
+        <td>{{ obj.marca }}</td>
+        <td>{{ obj.es_predeterminado }}</td>
+        <td>
+            <a href="{% url 'suscripciones:metodo_pago_update' obj.pk %}" class="btn-edit">Editar</a>
+            <a href="{% url 'suscripciones:metodo_pago_delete' obj.pk %}" class="btn-delete">Eliminar</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5">No hay Metodos de pago.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

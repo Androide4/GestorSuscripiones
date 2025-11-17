@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Eliminar Metodo de Pago{% endblock %}
+{% block content %}
+<h2>Confirmar Metodo de Pago</h2>
+<p>¿Estás seguro de eliminar "{{ object }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Eliminar</button>
+</form>
+{% endblock %}

@@ -2,17 +2,35 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Subscription Tracker{% endblock %}</title>
+    <title>{% block title %}Gestor de Suscripciones{% endblock %}</title>
     <style>
         body { font-family: Arial, sans-serif; background: #fff; color: #333; }
-        .header { background: #FFB6C1; padding: 10px; border-radius: 8px; }
-        .stats-box { background: #FFB6C1; padding: 10px; margin: 5px; border-radius: 8px; display: inline-block; width: 20%; text-align: center; }
-        .sub-list { background: #FFB6C1; padding: 10px; margin: 5px 0; border-radius: 8px; }
+        .header { padding: 10px; border-radius: 8px; }
+        .stats-box { padding: 10px; margin: 5px; border-radius: 8px; display: inline-block; width: 20%; text-align: center; }
+        .sub-list { padding: 10px; margin: 5px 0; border-radius: 8px; }
         .btn-add { background: #9370DB; color: white; padding: 10px; border-radius: 8px; text-decoration: none; }
         .form-group { margin: 10px 0; }
+        /* Añadido para fotos */
+        .nav { margin-top: 10px; }
+        .nav a { margin-right: 10px; text-decoration: none; color: #333; }
+        .card { border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; }
+        .btn-edit { background: #ffc107; color: white; padding: 5px; border-radius: 4px; text-decoration: none; }
+        .btn-delete { background: #dc3545; color: white; padding: 5px; border-radius: 4px; text-decoration: none; }
     </style>
 </head>
 <body>
+    <div class="header">
+        <h2>Gestor de Suscripciones</h2>
+        <p>Administra tus suscripciones y nunca pierdas un pago.</p>
+        <div class="nav">
+            <a href="{% url 'suscripciones:list' %}">Principal</a>
+            <a href="{% url 'suscripciones:proveedores_list' %}">Proveedores</a>
+            <a href="{% url 'suscripciones:monedas_list' %}">Monedas</a>
+            <a href="{% url 'suscripciones:planes_list' %}">Planes</a>
+            <a href="{% url 'suscripciones:metodos_pago_list' %}">Métodos de Pago</a>
+            <a href="{% url 'suscripciones:comentarios_list' %}">Comentarios</a>
+        </div>
+    </div>
     {% block content %}{% endblock %}
 </body>
 </html>

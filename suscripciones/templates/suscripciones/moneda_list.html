@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Monedas{% endblock %}
+{% block content %}
+<h2>Proveedores</h2>
+<div style="text-align: right; margin: 10px 0;">
+    <a href="{% url 'suscripciones:moneda_create' %}" class="btn-add">+ Añadir Moneda</a>
+</div>
+<table>
+    <tr>
+        <th>Codigo ISO</th>
+        <th>Simbolo</th>
+        <th>Decimales</th>
+    </tr>
+    {% for obj in monedas %}
+    <tr>
+        <td>{{ obj.codigo }}</td>
+        <td>{{ obj.simbolo }}</td>
+        <td>{{ obj.decimales }}</td>
+        <td>
+            <a href="{% url 'suscripciones:moneda_update' obj.pk %}" class="btn-edit">Editar</a>
+            <a href="{% url 'suscripciones:moneda_delete' obj.pk %}" class="btn-delete">Eliminar</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5">No hay proveedores.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

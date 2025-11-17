@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Proveedores{% endblock %}
+{% block content %}
+<h2>Proveedores</h2>
+<div style="text-align: right; margin: 10px 0;">
+    <a href="{% url 'suscripciones:proveedor_create' %}" class="btn-add">+ Añadir Proveedor</a>
+</div>
+<table>
+    <tr>
+        <th>Nombre</th>
+        <th>Sitio Web</th>
+        <th>Categoría</th>
+        <th>Creado En</th>
+        <th>Acciones</th>
+    </tr>
+    {% for obj in proveedores %}
+    <tr>
+        <td>{{ obj.nombre }}</td>
+        <td>{{ obj.sitio_web }}</td>
+        <td>{{ obj.get_categoria_display }}</td>
+        <td>{{ obj.creado_en }}</td>
+        <td>
+            <a href="{% url 'suscripciones:proveedor_update' obj.pk %}" class="btn-edit">Editar</a>
+            <a href="{% url 'suscripciones:proveedor_delete' obj.pk %}" class="btn-delete">Eliminar</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5">No hay proveedores.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

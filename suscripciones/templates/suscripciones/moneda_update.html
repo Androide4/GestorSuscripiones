@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-{% block title %}Nueva Suscripción{% endblock %}
+{% block title %}Editar Proveedor{% endblock %}
 {% block content %}
-<h2>Añadir Nueva Suscripción</h2>
+<h2>Editar Moneda: {{ object.proveedor.nombre }}</h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
