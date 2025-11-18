@@ -1,10 +1,22 @@
 {% extends 'base.html' %}
-{% block title %}Editar Suscripción{% endblock %}
+{% block title %} {% if form.instance.pk %}Editar{% else %}Nueva{% endif %} Suscripción{% endblock %}
 {% block content %}
-<h2>Editar Suscripción: {{ object.proveedor.nombre }}</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Guardar</button>
-</form>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">
+                    {% if form.instance.pk %}Editar{% else %}Añadir Nueva{% endif %} Suscripción
+                </h3>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

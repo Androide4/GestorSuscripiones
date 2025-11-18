@@ -25,7 +25,15 @@ SECRET_KEY = 'django-insecure-&^4g$9#s0pau4-n@c=l3g!!er3f4rcp7k44^*_lxf7z2-vvv*g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '.ngrok-free.dev',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.ngrok-free.dev',
+]
 
 
 # Application definition
@@ -124,7 +132,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
+# Static files
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'suscripciones' / 'static',  # Aquí irá tu CSS personalizado
+]
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Para collectstatic en producción
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

@@ -143,8 +143,10 @@ class Suscripcion(models.Model):
         ordering = ['-fecha_fin']
 
     def clean(self):
-        if self.fecha_fin <= self.fecha_inicio:
-            raise ValidationError("La fecha de fin debe ser posterior a la fecha de inicio.")
+        # Validación segura: solo se ejecuta si ambos campos están presentes
+        if self.fecha_inicio and self.fecha_fin:
+            if self.fecha_fin <= self.fecha_inicio:
+                raise ValidationError("La fecha de fin debe ser posterior a la fecha de inicio.")
 
     def save(self, *args, **kwargs):
         if self.plan and not self.pk:

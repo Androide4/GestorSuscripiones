@@ -1,0 +1,103 @@
+/* suscripciones/static/css/style.css */
+body {
+    background: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar {
+    background: #4e73df !important;
+}
+
+.navbar-brand, .nav-link {
+    color: white !important;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    color: #a8c0ff !important;
+}
+
+.stats-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+}
+
+.stats-card h3 {
+    font-size: 2rem;
+    margin: 10px 0;
+    color: #4e73df;
+}
+
+.sub-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s;
+}
+
+.sub-card:hover {
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+}
+
+.sub-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #4e73df;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rating {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffc107;
+}
+
+.btn-primary {
+    background: #4e73df;
+    border: none;
+}
+
+.btn-warning {
+    background: #f6c23e;
+    border: none;
+    color: black;
+}
+
+.btn-danger {
+    background: #e74a3b;
+    border: none;
+}
+
+.table {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #f8f9fa;
+    margin-top: 50px;
+    color: #6c757d;
+}

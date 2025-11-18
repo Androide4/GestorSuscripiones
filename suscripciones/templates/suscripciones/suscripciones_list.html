@@ -1,52 +1,83 @@
 {% extends 'base.html' %}
-{% block title %}Suscripciones{% endblock %}
+{% block title %}Mis Suscripciones{% endblock %}
 {% block content %}
-<div style="text-align: right; margin: 10px 0;">
-    <a href="{% url 'suscripciones:create' %}" class="btn-add">+ Añadir Suscripción</a>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Mis Suscripciones</h2>
+    <a href="{% url 'suscripciones:create' %}" class="btn btn-primary">+ Añadir Suscripción</a>
 </div>
-<div>
-    <div class="stats-box">
-        <p>Gasto Mensual</p>
-        <h3>${{ monthly_spend }}</h3>
+
+<!-- Stats -->
+<div class="row mb-5">
+    <div class="col-md-3">
+        <div class="stats-card">
+            <p class="text-muted">Gasto Mensual</p>
+            <h3>${{ monthly_spend|floatformat:2 }}</h3>
+        </div>
     </div>
-    <div class="stats-box">
-        <p>Gasto Anual</p>
-        <h3>${{ yearly_spend }}</h3>
+    <div class="col-md-3">
+        <div class="stats-card">
+            <p class="text-muted">Gasto Anual</p>
+            <h3>${{ yearly_spend|floatformat:2 }}</h3>
+        </div>
     </div>
-    <div class="stats-box">
-        <p>Suscripciones Activas</p>
-        <h3>{{ active_subs }}</h3>
+    <div class="col-md-3">
+        <div class="stats-card">
+            <p class="text-muted">Activas</p>
+            <h3>{{ active_subs }}</h3>
+        </div>
     </div>
-    <div class="stats-box">
-        <p>Pagos Próximos</p>
-        <h3>{{ upcoming }}</h3>
+    <div class="col-md-3">
+        <div class="stats-card">
+            <p class="text-muted">Próximos Pagos</p>
+            <h3>{{ upcoming }}</h3>
+        </div>
     </div>
 </div>
-<h3>Tus Suscripciones</h3>
-<p>Administrando {{ suscripciones.count }} suscripciones</p>
-{% for sub in suscripciones %}
-<div class="sub-list card">
-    <strong>{{ sub.proveedor.nombre }}</strong> - 
-    {% if sub.plan %}
-        {{ sub.plan.nombre }}
-    {% else %}
-        Custom
-    {% endif %}<br>
-    {{ sub.descripcion|default:"Sin descripción" }}<br>
-    Precio: 
-    {% if sub.plan %}
-        {{ sub.plan.precio }} {{ sub.plan.moneda.simbolo }}
-    {% else %}
-        N/A
-    {% endif %} per month<br>
-    Vence: {{ sub.fecha_fin }} ({{ sub.fecha_fin|timeuntil }} days)<br>
-    <p>Calificación: {{ sub.avg_puntuacion }}</p>  # Añadido al lado izquierdo
-    <a href="{% url 'calificaciones:create' suscripcion_pk=sub.pk %}">Calificar</a>
-    <a href="{% url 'calificaciones:list' suscripcion_pk=sub.pk %}">Ver Calificaciones</a>
-    <a href="{% url 'suscripciones:update' sub.pk %}" class="btn-edit">Editar</a>
-    <a href="{% url 'suscripciones:delete' sub.pk %}" class="btn-delete">Eliminar</a>
+
+<!-- Lista de suscripciones -->
+<div class="row">
+    {% for sub in suscripciones %}
+    <div class="col-md-6 mb-4">
+        <div class="sub-card">
+            <div class="d-flex align-items-center">
+                <div class="sub-logo me-3">{{ sub.proveedor.nombre|first|upper }}</div>
+                <div>
+                    <h5>{{ sub.proveedor.nombre }}</h5>
+                    <p class="mb-1">
+                        {% if sub.plan %}
+                            {{ sub.plan.nombre }}
+                        {% else %}
+                            Suscripción personalizada
+                        {% endif %}
+                    </p>
+                    <p class="text-muted small">{{ sub.descripcion|default:"Sin descripción" }}</p>
+                </div>
+            </div>
+            <div class="text-end">
+                <div class="rating mb-2">★ {{ sub.avg_puntuacion|default:"Sin calificar" }}</div>
+                <p class="mb-1">
+                    {% if sub.plan %}
+                        <strong>${{ sub.plan.precio }} {{ sub.plan.moneda.simbolo }}</strong>/mes
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </p>
+                <p class="text-muted small">
+                    Vence: {{ sub.fecha_fin|date:"d/m/Y" }} ({{ sub.fecha_fin|timeuntil }})
+                </p>
+                <div>
+                    <a href="{% url 'calificaciones:create' suscripcion_pk=sub.pk %}" class="btn btn-sm btn-outline-primary">Calificar</a>
+                    <a href="{% url 'calificaciones:list' suscripcion_pk=sub.pk %}" class="btn btn-sm btn-outline-secondary">Ver Calificaciones</a>
+                    <a href="{% url 'suscripciones:update' sub.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{% url 'suscripciones:delete' sub.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <p class="text-center text-muted">No tienes suscripciones aún. ¡Añade tu primera!</p>
+    </div>
+    {% endfor %}
 </div>
-{% empty %}
-<p>No subscriptions yet.</p>
-{% endfor %}
 {% endblock %}
