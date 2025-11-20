@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import sys
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -143,3 +143,24 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'  # Para collectstatic en producción
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+if 'runserver_mongo' in sys.argv:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'djongo',
+            'NAME': 'gestor_suscripciones',  # Nombre que quieras en Mongo
+            'CLIENT': {
+                'host': 'mongodb+srv://santi3mayo:django2025@cluster0.pzinijw.mongodb.net/?appName=Cluster0',
+            },
+            'ENFORCE_SCHEMA': False,  # Importante para que funcione con tus modelos actuales
+            'LOGGING': {
+                'version': 1,
+                'loggers': {
+                    'djongo': {
+                        'level': 'DEBUG',
+                    }
+                }
+            }
+        }
+    }

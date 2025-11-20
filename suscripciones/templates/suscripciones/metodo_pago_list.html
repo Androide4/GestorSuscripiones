@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 {% block title %}Metodos de Pago{% endblock %}
 {% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
 <h2>Metodos de Pago</h2>
-<div style="text-align: right; margin: 10px 0;">
-    <a href="{% url 'suscripciones:metodo_pago_create' %}" class="btn-add">+ Añadir Proveedor</a>
+    <a href="{% url 'suscripciones:metodo_pago_create' %}" class="btn btn-primary">+ Añadir Metodo de pago</a>
 </div>
-<table>
+<div class="card">
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead class="table-light">
     <tr>
         <th>Tipo  </th>
         <th>Últimos 4 Dígitos </th>
@@ -20,12 +23,19 @@
         <td>{{ obj.marca }}</td>
         <td>{{ obj.es_predeterminado }}</td>
         <td>
-            <a href="{% url 'suscripciones:metodo_pago_update' obj.pk %}" class="btn-edit">Editar</a>
-            <a href="{% url 'suscripciones:metodo_pago_delete' obj.pk %}" class="btn-delete">Eliminar</a>
+            {% if obj.pk %}  
+            <a href="{% url 'suscripciones:metodo_pago_update' obj.pk %}" class="btn btn-sm btn-warning">Editar</a>
+            <a href="{% url 'suscripciones:metodo_pago_delete' obj.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+            {% else %}
+                <span>No disponible</span>
+            {% endif %}
         </td>
     </tr>
-    {% empty %}
+                {% empty %}
     <tr><td colspan="5">No hay Metodos de pago.</td></tr>
-    {% endfor %}
-</table>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}

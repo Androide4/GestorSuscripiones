@@ -6,6 +6,7 @@ from .models import Suscripcion, Proveedor, Moneda, Plan, MetodoPago, Comentario
 from .forms import SuscripcionForm, ProveedorForm, MonedaForm, PlanForm, MetodoPagoForm, ComentarioForm
 from calificaciones.models import Calificacion
 from django.db import models
+import sys
 
 # Suscripciones
 class SuscripcionListView(ListView):
@@ -14,7 +15,10 @@ class SuscripcionListView(ListView):
     context_object_name = 'suscripciones'
 
     def get_queryset(self):
-        return Suscripcion.objects.filter(estado__in=['activa', 'pausada']).order_by('-fecha_fin')
+        qs = Suscripcion.objects.filter(estado__in=['activa', 'pausada'])
+        if 'runserver_mongo' not in sys.argv:  
+            qs = qs.order_by('-fecha_fin')
+        return qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -58,6 +62,7 @@ class ProveedorListView(ListView):
     model = Proveedor
     template_name = 'suscripciones/proveedor_list.html'
     context_object_name = 'proveedores'
+    
 
 class ProveedorCreateView(CreateView):
     model = Proveedor
